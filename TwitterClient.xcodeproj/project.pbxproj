@@ -6,6 +6,20 @@
 	objectVersion = 48;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		E8AA03DD20711FC30064F2CF /* CommonCryptoModuleMap */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E8AA03DE20711FC30064F2CF /* Build configuration list for PBXAggregateTarget "CommonCryptoModuleMap" */;
+			buildPhases = (
+				E8AA03E320711FED0064F2CF /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = CommonCryptoModuleMap;
+			productName = CommonCryptoModuleMap;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		E8A9926E206F6D810025F13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9926D206F6D810025F13E /* AppDelegate.swift */; };
 		E8A99270206F6D810025F13E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9926F206F6D810025F13E /* LoginViewController.swift */; };
@@ -14,7 +28,18 @@
 		E8A99278206F6D810025F13E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8A99276206F6D810025F13E /* LaunchScreen.storyboard */; };
 		E8A99283206F6F300025F13E /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A99282206F6F300025F13E /* OverviewViewController.swift */; };
 		E8A9928E206F904F0025F13E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9928D206F904F0025F13E /* UIViewController.swift */; };
+		E8AA03E7207123A80064F2CF /* hmac-sha1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AA03E6207123A80064F2CF /* hmac-sha1.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E8AA03E4207120200064F2CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A99262206F6D810025F13E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8AA03DD20711FC30064F2CF;
+			remoteInfo = CommonCryptoModuleMap;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		E8A9926A206F6D810025F13E /* TwitterClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +51,7 @@
 		E8A99279206F6D810025F13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8A99282206F6F300025F13E /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		E8A9928D206F904F0025F13E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		E8AA03E6207123A80064F2CF /* hmac-sha1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "hmac-sha1.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +100,7 @@
 				E8A9926F206F6D810025F13E /* LoginViewController.swift */,
 				E8A99282206F6F300025F13E /* OverviewViewController.swift */,
 				E8A9928D206F904F0025F13E /* UIViewController.swift */,
+				E8AA03E6207123A80064F2CF /* hmac-sha1.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -104,10 +131,12 @@
 				E8A99266206F6D810025F13E /* Sources */,
 				E8A99267206F6D810025F13E /* Frameworks */,
 				E8A99268206F6D810025F13E /* Resources */,
+				E8AA03DC20711F240064F2CF /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E8AA03E5207120200064F2CF /* PBXTargetDependency */,
 			);
 			name = TwitterClient;
 			productName = TwitterClient;
@@ -128,6 +157,10 @@
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
 					};
+					E8AA03DD20711FC30064F2CF = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = E8A99265206F6D810025F13E /* Build configuration list for PBXProject "TwitterClient" */;
@@ -144,6 +177,7 @@
 			projectRoot = "";
 			targets = (
 				E8A99269206F6D810025F13E /* TwitterClient */,
+				E8AA03DD20711FC30064F2CF /* CommonCryptoModuleMap */,
 			);
 		};
 /* End PBXProject section */
@@ -161,6 +195,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E8AA03DC20711F240064F2CF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		E8AA03E320711FED0064F2CF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This if-statement means we'll only run the main script if the CommonCryptoModuleMap directory doesn't exist\n# Because otherwise the rest of the script causes a full recompile for anything where CommonCrypto is a dependency\n# Do a \"Clean Build Folder\" to remove this directory and trigger the rest of the script to run\nif [ -d \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\" ]; then\necho \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap directory already exists, so skipping the rest of the script.\"\nexit 0\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\"\ncat <<EOF > \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap/module.modulemap\"\nmodule CommonCrypto [system] {\n    header \"${SDKROOT}/usr/include/CommonCrypto/CommonCrypto.h\"\n    export *\n}\nEOF";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E8A99266206F6D810025F13E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -168,12 +231,21 @@
 			files = (
 				E8A99270206F6D810025F13E /* LoginViewController.swift in Sources */,
 				E8A9926E206F6D810025F13E /* AppDelegate.swift in Sources */,
+				E8AA03E7207123A80064F2CF /* hmac-sha1.swift in Sources */,
 				E8A9928E206F904F0025F13E /* UIViewController.swift in Sources */,
 				E8A99283206F6F300025F13E /* OverviewViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E8AA03E5207120200064F2CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E8AA03DD20711FC30064F2CF /* CommonCryptoModuleMap */;
+			targetProxy = E8AA03E4207120200064F2CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E8A99271206F6D810025F13E /* Main.storyboard */ = {
@@ -311,6 +383,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = gebruiker.TwitterClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_INCLUDE_PATHS[arch=*]" = "$(inherited) \"${BUILT_PRODUCTS_DIR}/CommonCryptoModuleMap\"";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -327,6 +400,22 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E8AA03DF20711FC30064F2CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E8AA03E020711FC30064F2CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -347,6 +436,15 @@
 			buildConfigurations = (
 				E8A9927D206F6D810025F13E /* Debug */,
 				E8A9927E206F6D810025F13E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8AA03DE20711FC30064F2CF /* Build configuration list for PBXAggregateTarget "CommonCryptoModuleMap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8AA03DF20711FC30064F2CF /* Debug */,
+				E8AA03E020711FC30064F2CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
