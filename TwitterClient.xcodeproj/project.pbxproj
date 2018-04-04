@@ -21,6 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		D7C4069D2074BC1B00DC2368 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C4069C2074BC1B00DC2368 /* SettingsViewController.swift */; };
+		D7C4069F2074E71200DC2368 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C4069E2074E71200DC2368 /* StorageService.swift */; };
+		D7C406A12074F4FE00DC2368 /* TweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C406A02074F4FE00DC2368 /* TweetController.swift */; };
 		E8A9926E206F6D810025F13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9926D206F6D810025F13E /* AppDelegate.swift */; };
 		E8A99270206F6D810025F13E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9926F206F6D810025F13E /* LoginViewController.swift */; };
 		E8A99273206F6D810025F13E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8A99271206F6D810025F13E /* Main.storyboard */; };
@@ -42,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D7C4069C2074BC1B00DC2368 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		D7C4069E2074E71200DC2368 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		D7C406A02074F4FE00DC2368 /* TweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetController.swift; sourceTree = "<group>"; };
 		E8A9926A206F6D810025F13E /* TwitterClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A9926D206F6D810025F13E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8A9926F206F6D810025F13E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +107,9 @@
 				E8A99282206F6F300025F13E /* OverviewViewController.swift */,
 				E8A9928D206F904F0025F13E /* UIViewController.swift */,
 				E8AA03E6207123A80064F2CF /* hmac-sha1.swift */,
+				D7C4069C2074BC1B00DC2368 /* SettingsViewController.swift */,
+				D7C4069E2074E71200DC2368 /* StorageService.swift */,
+				D7C406A02074F4FE00DC2368 /* TweetController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -229,11 +238,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C4069D2074BC1B00DC2368 /* SettingsViewController.swift in Sources */,
 				E8A99270206F6D810025F13E /* LoginViewController.swift in Sources */,
 				E8A9926E206F6D810025F13E /* AppDelegate.swift in Sources */,
 				E8AA03E7207123A80064F2CF /* hmac-sha1.swift in Sources */,
 				E8A9928E206F904F0025F13E /* UIViewController.swift in Sources */,
+				D7C406A12074F4FE00DC2368 /* TweetController.swift in Sources */,
 				E8A99283206F6F300025F13E /* OverviewViewController.swift in Sources */,
+				D7C4069F2074E71200DC2368 /* StorageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
