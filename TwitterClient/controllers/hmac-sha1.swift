@@ -39,22 +39,20 @@ extension String {
         
         let result = hmacGenerate(from: stringData!, withKey: keyData!, using: algorithm)
         
-        var hash: String = ""
+        /*var hash: String = ""
         for i in 0..<algorithm.digestLength {
             hash += String(format: "%02x", result[i])
         }
         
-        return hash
+        print("signature bytes: \(hash)")*/
         
-        //return result.base64EncodedString()
+        return result.base64EncodedString()
     }
     
     private func hmacGenerate(from data: Data, withKey key: Data, using algorithm: CryptoAlgorithm) -> Data {
         // Get data pointers
         var result = Data(count: Int(algorithm.digestLength))
-        
-        print("result \(result)")
-        
+
         data.withUnsafeBytes{(dataBytesPointer: UnsafePointer<UInt8>) -> Void in
             key.withUnsafeBytes{(keyBytesPointer: UnsafePointer<UInt8>) -> Void in
                 result.withUnsafeMutableBytes{(resultBytesPointer: UnsafeMutablePointer<UInt8>) -> Void in
