@@ -39,13 +39,6 @@ extension String {
         
         let result = hmacGenerate(from: stringData!, withKey: keyData!, using: algorithm)
         
-        /*var hash: String = ""
-        for i in 0..<algorithm.digestLength {
-            hash += String(format: "%02x", result[i])
-        }
-        
-        print("signature bytes: \(hash)")*/
-        
         return result.base64EncodedString()
     }
     
