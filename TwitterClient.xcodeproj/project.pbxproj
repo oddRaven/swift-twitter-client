@@ -24,6 +24,8 @@
 		D7C4069D2074BC1B00DC2368 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C4069C2074BC1B00DC2368 /* SettingsViewController.swift */; };
 		D7C4069F2074E71200DC2368 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C4069E2074E71200DC2368 /* StorageService.swift */; };
 		D7C406A12074F4FE00DC2368 /* TweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C406A02074F4FE00DC2368 /* TweetController.swift */; };
+		E867EC53207660290081C067 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E867EC52207660290081C067 /* ApiService.swift */; };
+		E867EC552076605D0081C067 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E867EC542076605D0081C067 /* String.swift */; };
 		E8A9926E206F6D810025F13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9926D206F6D810025F13E /* AppDelegate.swift */; };
 		E8A99270206F6D810025F13E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9926F206F6D810025F13E /* LoginViewController.swift */; };
 		E8A99273206F6D810025F13E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8A99271206F6D810025F13E /* Main.storyboard */; };
@@ -31,7 +33,7 @@
 		E8A99278206F6D810025F13E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E8A99276206F6D810025F13E /* LaunchScreen.storyboard */; };
 		E8A99283206F6F300025F13E /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A99282206F6F300025F13E /* OverviewViewController.swift */; };
 		E8A9928E206F904F0025F13E /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9928D206F904F0025F13E /* UIViewController.swift */; };
-		E8AA03E7207123A80064F2CF /* hmac-sha1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AA03E6207123A80064F2CF /* hmac-sha1.swift */; };
+		E8AA03E7207123A80064F2CF /* Hmac-sha1.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AA03E6207123A80064F2CF /* Hmac-sha1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		D7C4069C2074BC1B00DC2368 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D7C4069E2074E71200DC2368 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		D7C406A02074F4FE00DC2368 /* TweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetController.swift; sourceTree = "<group>"; };
+		E867EC52207660290081C067 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		E867EC542076605D0081C067 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E8A9926A206F6D810025F13E /* TwitterClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8A9926D206F6D810025F13E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E8A9926F206F6D810025F13E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +61,7 @@
 		E8A99279206F6D810025F13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8A99282206F6F300025F13E /* OverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
 		E8A9928D206F904F0025F13E /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
-		E8AA03E6207123A80064F2CF /* hmac-sha1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "hmac-sha1.swift"; sourceTree = "<group>"; };
+		E8AA03E6207123A80064F2CF /* Hmac-sha1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hmac-sha1.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,10 +110,12 @@
 				E8A9926F206F6D810025F13E /* LoginViewController.swift */,
 				E8A99282206F6F300025F13E /* OverviewViewController.swift */,
 				E8A9928D206F904F0025F13E /* UIViewController.swift */,
-				E8AA03E6207123A80064F2CF /* hmac-sha1.swift */,
 				D7C4069C2074BC1B00DC2368 /* SettingsViewController.swift */,
 				D7C4069E2074E71200DC2368 /* StorageService.swift */,
 				D7C406A02074F4FE00DC2368 /* TweetController.swift */,
+				E8AA03E6207123A80064F2CF /* Hmac-sha1.swift */,
+				E867EC52207660290081C067 /* ApiService.swift */,
+				E867EC542076605D0081C067 /* String.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -241,7 +247,9 @@
 				D7C4069D2074BC1B00DC2368 /* SettingsViewController.swift in Sources */,
 				E8A99270206F6D810025F13E /* LoginViewController.swift in Sources */,
 				E8A9926E206F6D810025F13E /* AppDelegate.swift in Sources */,
-				E8AA03E7207123A80064F2CF /* hmac-sha1.swift in Sources */,
+				E867EC53207660290081C067 /* ApiService.swift in Sources */,
+				E8AA03E7207123A80064F2CF /* Hmac-sha1.swift in Sources */,
+				E867EC552076605D0081C067 /* String.swift in Sources */,
 				E8A9928E206F904F0025F13E /* UIViewController.swift in Sources */,
 				D7C406A12074F4FE00DC2368 /* TweetController.swift in Sources */,
 				E8A99283206F6F300025F13E /* OverviewViewController.swift in Sources */,
