@@ -5,12 +5,23 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        ApiService.shared.url(method: "GET", path: "1.1/account/verify_credentials.json"){ status, jsonObject in
+            if(status == 200){
+                self.performSegueAsync()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func performSegueAsync(){
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "signInSuccess", sender: nil)
+        }
     }
     
     enum LocalError: Error {
@@ -25,9 +36,7 @@ class LoginViewController: UIViewController {
         ApiService.shared.getAccessToken(pinCode: txtPinCode.text!) { success in
             print("pin code testing was a " + (success ? "succesful" : "failure"))
             if success {
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "signInSuccess", sender: nil)
-                }
+                self.performSegueAsync()
             }
         }
     }
