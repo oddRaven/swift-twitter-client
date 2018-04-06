@@ -22,9 +22,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func gainAccess(_ sender: Any) {
-        ApiService.shared.getAccessToken(pinCode: txtPinCode.text!)
-        
-        performSegue(withIdentifier: "signInSuccess", sender: nil)
+        ApiService.shared.getAccessToken(pinCode: txtPinCode.text!) { success in
+            print("pin code testing was a " + (success ? "succesful" : "failure"))
+            if success {
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "signInSuccess", sender: nil)
+                }
+            }
+        }
     }
     
 }

@@ -86,7 +86,7 @@ class ApiService{
      }
      }*/
     
-    public func getAccessToken(pinCode: String) -> Void {
+    public func getAccessToken(pinCode: String, completion: @escaping (_ success: Bool) -> Void) {
         let path = "oauth/access_token"
         let url: URL = URL(string: "https://\(host)/\(path)")!
         let method = "POST"
@@ -114,11 +114,13 @@ class ApiService{
         let task = URLSession.shared.dataTask(with: req as URLRequest) { data, response, error in
             let result: String = String(data: data!, encoding: String.Encoding.utf8) as String!
             let matches = result.matches(regex: "(.*?)(?:=)(.*?)(?:[&|$])")
-            guard matches.count >= 2 || matches[0].count == 3 || matches[1].count == 3 else {
-             return
+            guard matches.count >= 2 && matches[0].count == 3 && matches[1].count == 3 else {
+                return
             }
             self.accessToken = matches[0][2]
             self.accessTokenSecret = matches[1][2]
+            
+            completion(true)
         }
         task.resume()
     }
@@ -127,7 +129,44 @@ class ApiService{
         
     }
     
-    public func get(path: String) -> Void{
+    public func url(method: String, path: String) -> Void{
+        let url: URL = URL(string: "https://\(host)/\(path)")!
+        let req = NSMutableURLRequest(url: url)
+        req.httpMethod = method
+        let nonce = String(UUID().uuidString.prefix(8))
+        let signingKey = "\(consumerSecret)&\(accessTokenSecret)"
+        let timestamp = String(Int64(Date().timeIntervalSince1970))
         
+        var signatureBase: String = "oauth_callback=\(callback)&oauth_consumer_key=\(consumerKey)&oauth_nonce=\(nonce)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(timestamp)&oauth_token=\(accessToken)&oauth_version=1.0"
+        
+        signatureBase = signatureBase.replacingOccurrences(of: "&", with: "%26")
+        signatureBase = signatureBase.replacingOccurrences(of: "=", with: "%3D")
+        
+        signatureBase = "\(method)&\(url)&\(signatureBase)"
+        
+        signatureBase = signatureBase.replacingOccurrences(of: ":", with: "%3A")
+        signatureBase = signatureBase.replacingOccurrences(of: "/", with: "%2F")
+        
+        print()
+        print(signingKey)
+        print()
+        print(signatureBase)
+        
+        let signature: String = signatureBase.hmac(algorithm: .SHA1, key: signingKey).addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
+        let authorizationHeader : String = "OAuth oauth_version=\"1.0\", oauth_nonce=\"\(nonce)\", oauth_timestamp=\"\(timestamp)\", oauth_consumer_key=\"\(consumerKey)\", oauth_callback=\"\(callback)\", oauth_signature_method=\"HMAC-SHA1\", oauth_signature=\"\(signature)\", oauth_token=\"\(accessToken)\""
+        
+        print()
+        print(authorizationHeader)
+        
+        req.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: req as URLRequest) { data, response, error in
+            print()
+            print(response!)
+            let result: String = String(data: data!, encoding: String.Encoding.utf8) as String!
+            print(result)
+            print(result)
+        }
+        task.resume()
     }
 }
