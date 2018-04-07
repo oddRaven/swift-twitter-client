@@ -1,6 +1,7 @@
 import UIKit
+import MessageUI
 
-class TweetController: UIViewController {
+class TweetController: UIViewController, MFMessageComposeViewControllerDelegate {
     
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var textLabel: UILabel!
@@ -15,7 +16,7 @@ class TweetController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        createdAtLabel.text = valuePassed?.tweeTcreatedAt
+        createdAtText.text = valuePassed?.tweetCreatedAt
         textView.text = valuePassed?.tweetText
         
         let language = storageService.getLanguage()
@@ -36,4 +37,29 @@ class TweetController: UIViewController {
             textLabel.text = "Message"
         }
     }
+    
+    @IBAction func sendButtonClicked(_ sender: UIButton) {
+        if (MFMessageComposeViewController.canSendText()) {
+            let controller = MFMessageComposeViewController()
+            controller.body = valuePassed?.tweetText
+            controller.messageComposeDelegate = self
+            self.present(controller, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(
+                title: "Error",
+                message: "No messaging app found",
+                preferredStyle: .alert
+            )
+            
+            alert.addAction(UIAlertAction(title: "ok", style: .default))
+            
+            self.present(alert, animated: true)
+        }
+        
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
+

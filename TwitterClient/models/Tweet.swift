@@ -2,10 +2,10 @@ import Foundation
 
 class Tweet {
     var tweetText: String
-    var tweeTcreatedAt: String
+    var tweetCreatedAt: String
     
     init(text: String, createdAt: String) {
         self.tweetText = text
-        self.tweeTcreatedAt = createdAt
+        self.tweetCreatedAt = createdAt
     }
 }
