@@ -3,6 +3,7 @@ import UIKit
 
 class OverviewViewController: UIViewController, UITableViewDataSource, LanguageChangedDelegate {
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsButton: UIButton!
     
     var storageService = StorageService()
@@ -14,10 +15,26 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
         super.viewDidLoad()
 
         ApiService.shared.url(method: "GET", path: "1.1/statuses/home_timeline.json"){ status, jsonObject in
-            print(jsonObject)
+            if let tweetObjects = jsonObject as? [Any]{
+                for case let tweet as [String:Any] in tweetObjects {
+                    do{
+                        let id = try tweet["id"]
+                        let text = tweet["text"] as! String
+                        let createdAt = tweet["created_at"] as! String
+                        var username: String = ""
+                        if case let user as [String:Any] = tweet["user"]{
+                            username = user["name"] as! String
+                        }
+                        self.tweets += [Tweet(text: text, createdAt: createdAt)]
+                    }catch{
+                        print(error)
+                    }
+                }
+                self.tableView.reloadData()
+            }
         }
         
-        tweets += [Tweet(text: "Tweet text",createdAt: "12-12-1992"),Tweet(text: "Tweet text 2",createdAt: "01-01-1900")]
+        //tweets += [Tweet(text: "Tweet text",createdAt: "12-12-1992"),Tweet(text: "Tweet text 2",createdAt: "01-01-1900")]
         
         let language = storageService.getLanguage();
         translate(language: language)
