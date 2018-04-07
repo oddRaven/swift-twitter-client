@@ -106,6 +106,8 @@
 		E8A9926C206F6D810025F13E /* TwitterClient */ = {
 			isa = PBXGroup;
 			children = (
+				E8DCC79720790C32000CB3C5 /* helpers */,
+				E8DCC79620790C24000CB3C5 /* extensions */,
 				E85D22DB2077739C002A191F /* models */,
 				E8A99281206F6DB30025F13E /* views */,
 				E8A9927F206F6D9E0025F13E /* controllers */,
@@ -123,12 +125,7 @@
 				E8A99282206F6F300025F13E /* OverviewViewController.swift */,
 				E8A9928D206F904F0025F13E /* UIViewController.swift */,
 				D7C4069C2074BC1B00DC2368 /* SettingsViewController.swift */,
-				D7C4069E2074E71200DC2368 /* StorageService.swift */,
 				D7C406A02074F4FE00DC2368 /* TweetController.swift */,
-				E8AA03E6207123A80064F2CF /* Hmac-sha1.swift */,
-				E867EC52207660290081C067 /* ApiService.swift */,
-				E867EC542076605D0081C067 /* String.swift */,
-				E8DAB53E20776C460049D800 /* UserDefaults.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -140,6 +137,25 @@
 				E8A99276206F6D810025F13E /* LaunchScreen.storyboard */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		E8DCC79620790C24000CB3C5 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E8DAB53E20776C460049D800 /* UserDefaults.swift */,
+				E867EC542076605D0081C067 /* String.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		E8DCC79720790C32000CB3C5 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D7C4069E2074E71200DC2368 /* StorageService.swift */,
+				E867EC52207660290081C067 /* ApiService.swift */,
+				E8AA03E6207123A80064F2CF /* Hmac-sha1.swift */,
+			);
+			path = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

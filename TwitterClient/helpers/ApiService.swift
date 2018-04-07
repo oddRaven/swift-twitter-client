@@ -2,9 +2,6 @@ import Foundation
 import UIKit
 
 class ApiService{
-    private static let userDefaultAccessTokenKey = "accessToken"
-    private static let userDefaultAccessTokenSecretKey = "accessTokenSecret"
-    
     private let callback = "oob"
     private let consumerKey = "jmsKXfZ7qHjxsdqTRtEwLiKy2"
     private let consumerSecret = "a56aLS53qu4G3zVrP9xBFI3rQnyy1RO8sBfdspXMm2SD71MxgT"
@@ -17,29 +14,20 @@ class ApiService{
     private var oauthToken: String = ""
     private var oauthTokenSecret: String = ""
     
-    public static let shared: ApiService = ApiService()
+    public static let shared = ApiService()
     
     private init(){
         initAccessTokens()
     }
     
     private func initAccessTokens(){
-        if !UserDefaults.standard.contains(key: ApiService.userDefaultAccessTokenKey) {
-            let userDefaultEntry: [String:Any] = [ApiService.userDefaultAccessTokenKey: accessToken]
-            UserDefaults.standard.register(defaults: userDefaultEntry)
-        }
-        accessToken = UserDefaults.standard.string(forKey: ApiService.userDefaultAccessTokenKey)!
-        
-        if !UserDefaults.standard.contains(key: ApiService.userDefaultAccessTokenSecretKey) {
-            let userDefaultEntry: [String:Any] = [ApiService.userDefaultAccessTokenSecretKey: accessToken]
-            UserDefaults.standard.register(defaults: userDefaultEntry)
-        }
-        accessTokenSecret = UserDefaults.standard.string(forKey: ApiService.userDefaultAccessTokenSecretKey)!
+        accessToken = StorageService.shared.getAccessToken()
+        accessTokenSecret = StorageService.shared.getAccessTokenSecret()
     }
     
     private func safeAccessTokens(){
-        UserDefaults.standard.set(accessToken, forKey: ApiService.userDefaultAccessTokenKey)
-        UserDefaults.standard.set(accessTokenSecret, forKey: ApiService.userDefaultAccessTokenSecretKey)
+        StorageService.shared.setAccessToken(accessToken)
+        StorageService.shared.setAccessTokenSecret(accessTokenSecret)
     }
     
     private func getDefaultParameters() -> [String:String]{

@@ -6,7 +6,7 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsButton: UIButton!
     
-    var storageService = StorageService()
+    var storageService = StorageService.shared
     
     var valueToPass:Tweet!
     var tweets = [Tweet]()

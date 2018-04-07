@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         self.textBox.text = self.languages[row]
         translate(language: self.languages[row])
-        storageService.setLanguage(newLanguage: self.languages[row])
+        storageService.setLanguage(self.languages[row])
         
         delegate?.changedLanguage()
         
