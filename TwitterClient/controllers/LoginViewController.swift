@@ -6,7 +6,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ApiService.shared.url(method: "GET", path: "1.1/account/verify_credentials.json"){ status, jsonObject in
+        ApiService.shared.get(path: "1.1/account/verify_credentials.json"){ status, jsonObject in
             if(status == 200){
                 self.performSegueAsync()
             }

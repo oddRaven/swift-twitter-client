@@ -18,36 +18,110 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoY-FI-JXT">
-                                <rect key="frame" x="168" y="149" width="38" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="attemptSignIn:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="hbn-8c-2t5"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="pin code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WQA-e5-Xf4">
-                                <rect key="frame" x="106" y="301" width="162" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" hint="wachtwoord"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tw4-0E-chc">
-                                <rect key="frame" x="152" y="468" width="69" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Verzend">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="gainAccess:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="5SA-0Q-BKB"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="N95-24-g7N">
+                                <rect key="frame" x="50" y="70" width="275" height="547"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHG-rn-rcU" userLabel="Authorization View">
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="137"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Authorization" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2f3-d5-8qp">
+                                                <rect key="frame" x="0.0" y="0.0" width="275" height="68.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="2f3-d5-8qp" firstAttribute="centerX" secondItem="cHG-rn-rcU" secondAttribute="centerX" id="phd-Qn-bwJ"/>
+                                            <constraint firstItem="2f3-d5-8qp" firstAttribute="centerY" secondItem="cHG-rn-rcU" secondAttribute="centerY" id="qVD-xe-JTI"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="86C-D7-5Kt" userLabel="Login View">
+                                        <rect key="frame" x="0.0" y="137" width="275" height="136.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoY-FI-JXT">
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="78"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="125" id="pIm-79-VC4"/>
+                                                </constraints>
+                                                <state key="normal" title="Login">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="attemptSignIn:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="hbn-8c-2t5"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="uoY-FI-JXT" firstAttribute="centerY" secondItem="86C-D7-5Kt" secondAttribute="centerY" id="Vmz-WA-M1I"/>
+                                            <constraint firstItem="uoY-FI-JXT" firstAttribute="centerX" secondItem="86C-D7-5Kt" secondAttribute="centerX" id="djz-wh-VcK"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wM5-SS-DKg" userLabel="Pin code View">
+                                        <rect key="frame" x="0.0" y="273.5" width="275" height="137"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="center" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="pin code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WQA-e5-Xf4">
+                                                <rect key="frame" x="0.0" y="-0.5" width="125" height="91.5"/>
+                                                <accessibility key="accessibilityConfiguration" hint="wachtwoord">
+                                                    <accessibilityTraits key="traits" none="YES"/>
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="125" id="2Fk-sU-Fzp"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="WQA-e5-Xf4" firstAttribute="centerX" secondItem="wM5-SS-DKg" secondAttribute="centerX" id="Jpm-9S-S4J"/>
+                                            <constraint firstItem="WQA-e5-Xf4" firstAttribute="centerY" secondItem="wM5-SS-DKg" secondAttribute="centerY" id="gZ6-cF-k6Z"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tt6-Vp-DzH" userLabel="Send View">
+                                        <rect key="frame" x="0.0" y="410.5" width="275" height="136.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tw4-0E-chc">
+                                                <rect key="frame" x="0.0" y="0.0" width="125" height="109.5"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="125" id="7gd-LC-8rc"/>
+                                                </constraints>
+                                                <state key="normal" title="Verzend">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layout.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="gainAccess:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="5SA-0Q-BKB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="tw4-0E-chc" firstAttribute="centerY" secondItem="Tt6-Vp-DzH" secondAttribute="centerY" id="2TI-Ss-tdo"/>
+                                            <constraint firstItem="tw4-0E-chc" firstAttribute="centerX" secondItem="Tt6-Vp-DzH" secondAttribute="centerX" id="59B-vM-DgM"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.67450980390000004" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="N95-24-g7N" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="APo-tL-5sz"/>
+                            <constraint firstItem="N95-24-g7N" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="UtY-o3-EPG"/>
+                            <constraint firstItem="N95-24-g7N" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="lS4-83-7eY"/>
+                            <constraint firstItem="N95-24-g7N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="ooE-lr-liJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
