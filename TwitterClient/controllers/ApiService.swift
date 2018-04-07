@@ -9,6 +9,8 @@ class ApiService{
     private let consumerKey = "jmsKXfZ7qHjxsdqTRtEwLiKy2"
     private let consumerSecret = "a56aLS53qu4G3zVrP9xBFI3rQnyy1RO8sBfdspXMm2SD71MxgT"
     private let host = "api.twitter.com"
+    private let oauthVersion = "1.0"
+    private let oauthSignatureMethod = "HMAC-SHA1"
     
     private var accessToken: String = ""
     private var accessTokenSecret: String = ""
@@ -40,35 +42,71 @@ class ApiService{
         UserDefaults.standard.set(accessTokenSecret, forKey: ApiService.userDefaultAccessTokenSecretKey)
     }
     
-    public func requestToken() -> Void {
-        let path = "oauth/request_token"
-        let url: URL = URL(string: "https://\(host)/\(path)")!
-        let method = "POST"
-        let req = NSMutableURLRequest(url: url)
-        req.httpMethod = method
-        let nonce = String(UUID().uuidString.prefix(8))
-        let signingKey = consumerSecret + "&"
-        let timestamp = String(Int64(Date().timeIntervalSince1970))
+    private func getDefaultParameters() -> [String:String]{
+        var parameters: [String:String] = [:]
+        parameters["oauth_callback"] = callback
+        parameters["oauth_consumer_key"] = consumerKey
+        parameters["oauth_nonce"] = String(UUID().uuidString.prefix(8))
+        parameters["oauth_signature_method"] = oauthSignatureMethod
+        parameters["oauth_timestamp"] = String(Int64(Date().timeIntervalSince1970))
+        parameters["oauth_version"] = oauthVersion
+        return parameters
+    }
+    
+    private func getSignature(method: String, url: URL, parameters: [String:String]) -> String{
+        let signingKey = consumerSecret + "&" + accessTokenSecret
         
-        var signatureBase: String = "oauth_callback=\(callback)&oauth_consumer_key=\(consumerKey)&oauth_nonce=\(nonce)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(timestamp)&oauth_version=1.0"
-        
-        signatureBase = signatureBase.replacingOccurrences(of: "&", with: "%26")
-        signatureBase = signatureBase.replacingOccurrences(of: "=", with: "%3D")
+        let sortedParameters = parameters.sorted { (aDic, bDic) -> Bool in
+            return aDic.key < bDic.key
+        }
+       
+        var signatureBase: String = ""
+        var nr: Int = 0
+        for (key, value) in sortedParameters {
+            nr += 1
+            signatureBase += "\(key)%3D\(value)" + (nr != sortedParameters.count ? "%26" : "") // '&'' = %26, '=' = %3D
+        }
         
         signatureBase = "\(method)&\(url)&\(signatureBase)"
-        
         signatureBase = signatureBase.replacingOccurrences(of: ":", with: "%3A")
         signatureBase = signatureBase.replacingOccurrences(of: "/", with: "%2F")
         
         let signature: String = signatureBase.hmac(algorithm: .SHA1, key: signingKey).addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-        let authorizationHeader : String = "OAuth oauth_version=\"1.0\", oauth_nonce=\"\(nonce)\", oauth_timestamp=\"\(timestamp)\", oauth_consumer_key=\"\(consumerKey)\", oauth_callback=\"\(callback)\", oauth_signature_method=\"HMAC-SHA1\", oauth_signature=\"\(signature)\""
+        return signature
+    }
+    
+    private func getAuthorizationHeader(parameters: [String:String]) -> String{
+        var authorizationHeader: String = "OAuth "
+        let sortedParameters = parameters.sorted { (aDic, bDic) -> Bool in
+            return aDic.key < bDic.key
+        }
+        var nr: Int = 0
+        for(key, value) in sortedParameters{
+            nr += 1
+            authorizationHeader += "\(key)=\"\(value)\"" + (nr != sortedParameters.count ? ", " : "")
+        }
         
+        return authorizationHeader
+    }
+    
+    public func requestToken() -> Void {
+        let path = "oauth/request_token"
+        let url = URL(string: "https://\(host)/\(path)")!
+        let method = "POST"
+        let req = NSMutableURLRequest(url: url)
+        req.httpMethod = method
+        
+        var parameters: [String:String] = getDefaultParameters()
+        parameters["oauth_signature"] = self.getSignature(method: method, url: url, parameters: parameters)
+        
+        let authorizationHeader: String = self.getAuthorizationHeader(parameters: parameters)
         req.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: req as URLRequest) { data, response, error in
-            let result: String = String(data: data!, encoding: String.Encoding.utf8) as String!
+            let result: String = (String(data: data!, encoding: String.Encoding.utf8) as String?)!
             let matches = result.matches(regex: "(.*?)(?:=)(.*?)(?:[&|$])")
-            guard matches.count >= 2 || matches[0].count == 3 || matches[1].count == 3 else {
+            guard matches.count >= 2 && matches[0].count == 3 && matches[1].count == 3 else {
+                print(response!)
                 return
             }
             self.oauthToken = matches[0][2]
@@ -99,27 +137,17 @@ class ApiService{
         let method = "POST"
         let req = NSMutableURLRequest(url: url)
         req.httpMethod = method
-        let nonce = String(UUID().uuidString.prefix(8))
-        let signingKey = "\(consumerSecret)&\(oauthTokenSecret)"
-        let timestamp = String(Int64(Date().timeIntervalSince1970))
+
+        var parameters: [String:String] = getDefaultParameters()
+        parameters["oauth_token"] = oauthToken
+        parameters["oauth_verifier"] = pinCode
+        parameters["oauth_signature"] = getSignature(method: method, url: url, parameters: parameters)
         
-        var signatureBase: String = "oauth_callback=\(callback)&oauth_consumer_key=\(consumerKey)&oauth_nonce=\(nonce)&oauth_verifier=\"\(pinCode)\"oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(timestamp)&oauth_token=\(oauthToken)&oauth_version=1.0"
-        
-        signatureBase = signatureBase.replacingOccurrences(of: "&", with: "%26")
-        signatureBase = signatureBase.replacingOccurrences(of: "=", with: "%3D")
-        
-        signatureBase = "\(method)&\(url)&\(signatureBase)"
-        
-        signatureBase = signatureBase.replacingOccurrences(of: ":", with: "%3A")
-        signatureBase = signatureBase.replacingOccurrences(of: "/", with: "%2F")
-        
-        let signature: String = signatureBase.hmac(algorithm: .SHA1, key: signingKey).addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-        let authorizationHeader : String = "OAuth oauth_version=\"1.0\", oauth_nonce=\"\(nonce)\", oauth_timestamp=\"\(timestamp)\", oauth_consumer_key=\"\(consumerKey)\", oauth_callback=\"\(callback)\", oauth_signature_method=\"HMAC-SHA1\", oauth_signature=\"\(signature)\", oauth_token=\"\(oauthToken)\", oauth_verifier=\"\(pinCode)\""
-        
+        let authorizationHeader: String = getAuthorizationHeader(parameters: parameters)
         req.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: req as URLRequest) { data, response, error in
-            let result: String = String(data: data!, encoding: String.Encoding.utf8) as String!
+            let result: String = (String(data: data!, encoding: String.Encoding.utf8) as String?)!
             let matches = result.matches(regex: "(.*?)(?:=)(.*?)(?:[&|$])")
             guard matches.count >= 2 && matches[0].count == 3 && matches[1].count == 3 else {
                 return
@@ -138,23 +166,12 @@ class ApiService{
         let url: URL = URL(string: "https://\(host)/\(path)")!
         let req = NSMutableURLRequest(url: url)
         req.httpMethod = method
-        let nonce = String(UUID().uuidString.prefix(8))
-        let signingKey = "\(consumerSecret)&\(accessTokenSecret)"
-        let timestamp = String(Int64(Date().timeIntervalSince1970))
         
-        var signatureBase: String = "oauth_callback=\(callback)&oauth_consumer_key=\(consumerKey)&oauth_nonce=\(nonce)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=\(timestamp)&oauth_token=\(accessToken)&oauth_version=1.0"
+        var parameters: [String:String] = getDefaultParameters()
+        parameters["oauth_token"] = accessToken
+        parameters["oauth_signature"] = self.getSignature(method: method, url: url, parameters: parameters)
         
-        signatureBase = signatureBase.replacingOccurrences(of: "&", with: "%26")
-        signatureBase = signatureBase.replacingOccurrences(of: "=", with: "%3D")
-        
-        signatureBase = "\(method)&\(url)&\(signatureBase)"
-        
-        signatureBase = signatureBase.replacingOccurrences(of: ":", with: "%3A")
-        signatureBase = signatureBase.replacingOccurrences(of: "/", with: "%2F")
-        
-        let signature: String = signatureBase.hmac(algorithm: .SHA1, key: signingKey).addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
-        let authorizationHeader : String = "OAuth oauth_version=\"1.0\", oauth_nonce=\"\(nonce)\", oauth_timestamp=\"\(timestamp)\", oauth_consumer_key=\"\(consumerKey)\", oauth_callback=\"\(callback)\", oauth_signature_method=\"HMAC-SHA1\", oauth_signature=\"\(signature)\", oauth_token=\"\(accessToken)\""
-        
+        let authorizationHeader: String = self.getAuthorizationHeader(parameters: parameters)
         req.addValue(authorizationHeader, forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: req as URLRequest) { data, response, error in
@@ -171,17 +188,18 @@ class ApiService{
                     print("JSON is invalid")
                     completion(status, [:])
                 }
-                /*if let json = try JSONSerialization.jsonObject(with: data!) as? [String: Any] {
-                    print()
-                    print(json)
-                    completion(status, json)
-                }else{
-                    completion(status, [:])
-                }*/
             }catch{
                 print(error)
             }
         }
         task.resume()
+    }
+    
+    public func get(path: String, completion: @escaping (_ status: Int, _ jsonObject: Any) -> Void) -> Void{
+        self.url(method: "GET", path: path, completion: completion)
+    }
+    
+    public func post(path: String, completion: @escaping (_ status: Int, _ jsonObject: Any) -> Void) -> Void{
+        self.url(method: "POST", path: path, completion: completion)
     }
 }

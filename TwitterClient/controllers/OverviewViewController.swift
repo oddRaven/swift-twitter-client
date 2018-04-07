@@ -14,7 +14,7 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ApiService.shared.url(method: "GET", path: "1.1/statuses/home_timeline.json"){ status, jsonObject in
+        ApiService.shared.get(path: "1.1/statuses/home_timeline.json"){ status, jsonObject in
             if let tweetObjects = jsonObject as? [Any]{
                 for case let tweet as [String:Any] in tweetObjects {
                     do{
@@ -30,11 +30,12 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
                         print(error)
                     }
                 }
-                self.tableView.reloadData()
+                
+                DispatchQueue.main.async{
+                    self.tableView.reloadData()
+                }
             }
         }
-        
-        //tweets += [Tweet(text: "Tweet text",createdAt: "12-12-1992"),Tweet(text: "Tweet text 2",createdAt: "01-01-1900")]
         
         let language = storageService.getLanguage();
         translate(language: language)
