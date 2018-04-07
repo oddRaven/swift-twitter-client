@@ -37,6 +37,8 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
             }
         }
         
+        self.tableView.tableFooterView = UIView()
+        
         let language = storageService.getLanguage();
         translate(language: language)
     }
@@ -54,18 +56,8 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
         
         if (segue.identifier == "showDetailViewController") {
             let viewController = segue.destination as! TweetController
-
-            viewController.valuePassed = valueToPass
+            viewController.valuePassed = tweets[self.tableView.indexPathForSelectedRow!.row]
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // TODO: send selected tweet to detail
-        let indexPath = tableView.indexPathForSelectedRow!
-        
-        valueToPass = tweets[indexPath.row]
-        performSegue(withIdentifier: "showDetailViewController", sender: self)
     }
     
     func translate(language: String) {

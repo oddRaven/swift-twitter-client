@@ -14,7 +14,7 @@ class SettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var dropDown: UIPickerView!
     
     var languages = ["Nederlands", "English"]
-    var storageService = StorageService()
+    var storageService = StorageService.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
