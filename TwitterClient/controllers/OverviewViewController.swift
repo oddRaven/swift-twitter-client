@@ -76,7 +76,7 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
         } else {
             self.title = "Overview"
             settingsButton.setTitle("Settings", for: .normal)
-            settingsButton.setTitle("Sign out", for: .normal)
+            signOutButton.setTitle("Sign out", for: .normal)
         }
     }
     
