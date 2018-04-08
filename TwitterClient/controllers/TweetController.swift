@@ -10,6 +10,8 @@ class TweetController: UIViewController, MFMessageComposeViewControllerDelegate 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var lowerCaseButton: UIButton!
     @IBOutlet weak var upperCaseButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameText: UITextField!
     
     var valuePassed: Tweet?
     var storageService = StorageService.shared
@@ -18,6 +20,7 @@ class TweetController: UIViewController, MFMessageComposeViewControllerDelegate 
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        nameText.text = valuePassed?.tweetUsername
         createdAtText.text = valuePassed?.tweetCreatedAt
         textView.text = valuePassed?.tweetText
         
@@ -32,11 +35,13 @@ class TweetController: UIViewController, MFMessageComposeViewControllerDelegate 
 
     func translate(language: String) {
         if (language == "Nederlands") {
+            nameLabel.text = "Auteur"
             createdAtLabel.text = "Geplaatst op"
             textLabel.text = "Bericht"
             lowerCaseButton.setTitle("klein", for: .normal)
             upperCaseButton.setTitle("HOOFD", for: .normal)
         } else {
+            nameLabel.text = "Author"
             createdAtLabel.text = "Posted on"
             textLabel.text = "Message"
             lowerCaseButton.setTitle("lower", for: .normal)
