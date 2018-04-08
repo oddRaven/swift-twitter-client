@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -249,7 +249,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="v1G-N6-hi8">
-                                <rect key="frame" x="16" y="165" width="343" height="482"/>
+                                <rect key="frame" x="16" y="165" width="343" height="441"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -259,20 +259,42 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1jD-LR-KGn">
                                 <rect key="frame" x="155" y="127" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send"/>
+                                <state key="normal" title="Copy"/>
                                 <connections>
                                     <action selector="sendButtonClicked:" destination="dA6-md-vM0" eventType="primaryActionTriggered" id="9xN-da-uQn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gWO-Tw-fhc">
+                                <rect key="frame" x="16" y="614" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="upperCaseButtonClicked:" destination="dA6-md-vM0" eventType="primaryActionTriggered" id="zfn-2r-vFI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="318-Ty-SbM">
+                                <rect key="frame" x="117" y="614" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="lowerCaseButtonClicked:" destination="dA6-md-vM0" eventType="primaryActionTriggered" id="qFC-wc-uSK"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zQp-QQ-ExQ" firstAttribute="bottom" secondItem="318-Ty-SbM" secondAttribute="bottom" constant="23" id="Awp-dQ-OST"/>
+                            <constraint firstItem="zQp-QQ-ExQ" firstAttribute="bottom" secondItem="gWO-Tw-fhc" secondAttribute="bottom" constant="23" id="YSg-ZW-wld"/>
+                            <constraint firstItem="318-Ty-SbM" firstAttribute="leading" secondItem="gWO-Tw-fhc" secondAttribute="trailing" constant="55" id="hyF-Rc-B9b"/>
+                            <constraint firstItem="gWO-Tw-fhc" firstAttribute="leading" secondItem="zQp-QQ-ExQ" secondAttribute="leading" constant="16" id="onB-7a-sci"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="zQp-QQ-ExQ"/>
                     </view>
                     <connections>
                         <outlet property="createdAtLabel" destination="gwu-UN-ZwX" id="s9y-I1-dHH"/>
                         <outlet property="createdAtText" destination="7eP-0S-KXB" id="MBz-8r-a9h"/>
+                        <outlet property="lowerCaseButton" destination="318-Ty-SbM" id="KaU-pa-eva"/>
                         <outlet property="textLabel" destination="pQE-Pq-5JD" id="dHE-zO-Ong"/>
                         <outlet property="textView" destination="v1G-N6-hi8" id="GrT-Ck-zm3"/>
+                        <outlet property="upperCaseButton" destination="gWO-Tw-fhc" id="KpI-Dx-8xP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KbT-op-3VR" userLabel="First Responder" sceneMemberID="firstResponder"/>
