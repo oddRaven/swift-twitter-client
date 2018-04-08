@@ -6,6 +6,8 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var signOutButton: UIButton!
+    @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var outsideMenuView: UIView!
     
     var storageService = StorageService.shared
     
@@ -14,6 +16,9 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.outsideMenuViewgTabbed))
+        self.outsideMenuView.addGestureRecognizer(gesture)
 
         ApiService.shared.get(path: "1.1/statuses/home_timeline.json"){ status, jsonObject in
             if let tweetObjects = jsonObject as? [Any]{
@@ -43,6 +48,12 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool){
+        super.viewDidAppear(animated)
+        
+        menuView.isHidden = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,6 +96,18 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
         cell.textLabel?.text = tweets[indexPath.row].tweetText
         
         return cell
+    }
+    
+    @IBAction func btnMenuPressed(_ sender: Any) {
+        if menuView.isHidden{
+            menuView.isHidden = false
+        }else{
+            menuView.isHidden = true
+        }
+    }
+    
+    @objc func outsideMenuViewgTabbed(sender : UITapGestureRecognizer) {
+        menuView.isHidden = true
     }
     
     @IBAction func btnSignOutPressed(_ sender: Any) {
