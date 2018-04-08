@@ -2,6 +2,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var txtPinCode: UITextField!
+    @IBOutlet weak var btnSend: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,23 +19,43 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool){
+        super.viewDidAppear(animated)
+        
+        ApiService.shared.initAccessTokens()
+        txtPinCode.text = ""
+        txtPinCode.isEnabled = false
+        btnSend.isEnabled = false
+        self.btnSend.backgroundColor = UIColor(rgb: 0xD3D3D3)
+    }
+    
     private func performSegueAsync(){
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "signInSuccess", sender: nil)
         }
     }
     
-    enum LocalError: Error {
-        case unknown
-    }
-    
     @IBAction func attemptSignIn(_ sender: UIButton) {
-        ApiService.shared.requestToken()
+        ApiService.shared.requestToken(){ success in
+            DispatchQueue.main.async {
+                if success {
+                    self.showToast("succeeded")
+                    self.txtPinCode.isEnabled = true
+                    self.btnSend.isEnabled = true
+                    self.btnSend.backgroundColor = UIColor(rgb: 0x007AFF)
+                } else {
+                    self.showToast("failed")
+                }
+            }
+        }
     }
     
     @IBAction func gainAccess(_ sender: Any) {
         ApiService.shared.getAccessToken(pinCode: txtPinCode.text!) { success in
-            print("pin code testing was a " + (success ? "succesful" : "failure"))
+            DispatchQueue.main.async {
+                self.showToast(success ? "succeeded" : "failed")
+            }
+            
             if success {
                 self.performSegueAsync()
             }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -90,7 +90,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tw4-0E-chc">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="109.5"/>
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.82745098039215681" green="0.82745098039215681" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="125" id="7gd-LC-8rc"/>
                                                 </constraints>
@@ -125,6 +125,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="btnSend" destination="tw4-0E-chc" id="L7H-Xk-015"/>
                         <outlet property="txtPinCode" destination="WQA-e5-Xf4" id="8U3-OL-2pU"/>
                         <segue destination="VdD-sE-fq8" kind="show" identifier="signInSuccess" id="HOv-kQ-GOA"/>
                     </connections>
@@ -178,11 +179,18 @@
                                     <outlet property="delegate" destination="4XV-W2-hSI" id="gsX-2H-sH0"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaa-Bd-grB">
-                                <rect key="frame" x="159" y="72" width="57" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaa-Bd-grB">
+                                <rect key="frame" x="10" y="72" width="100" height="30"/>
                                 <state key="normal" title="Settings"/>
                                 <connections>
                                     <segue destination="DdF-FE-oTI" kind="show" identifier="showSettingsViewController" id="MWe-nI-koG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QH-UZ-Gyz" userLabel="Sign out Button">
+                                <rect key="frame" x="266" y="72" width="100" height="30"/>
+                                <state key="normal" title="Sign-out"/>
+                                <connections>
+                                    <action selector="btnSignOutPressed:" destination="4XV-W2-hSI" eventType="primaryActionTriggered" id="AWH-ek-2I3"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -190,11 +198,12 @@
                         <constraints>
                             <constraint firstItem="yZ3-p2-olK" firstAttribute="top" secondItem="Vaa-Bd-grB" secondAttribute="bottom" constant="17" id="3qe-Ux-fZq"/>
                             <constraint firstItem="yZ3-p2-olK" firstAttribute="top" secondItem="Vaa-Bd-grB" secondAttribute="bottom" constant="17" id="5RO-jX-es8"/>
-                            <constraint firstItem="Vaa-Bd-grB" firstAttribute="leading" secondItem="ahC-Sn-pJT" secondAttribute="leading" constant="159" id="9ue-9H-bCi"/>
+                            <constraint firstItem="Vaa-Bd-grB" firstAttribute="leading" secondItem="ahC-Sn-pJT" secondAttribute="leading" constant="10" id="9ue-9H-bCi"/>
+                            <constraint firstItem="7QH-UZ-Gyz" firstAttribute="trailing" secondItem="ahC-Sn-pJT" secondAttribute="trailing" constant="-10" id="CUU-xU-dt8"/>
                             <constraint firstItem="yZ3-p2-olK" firstAttribute="width" secondItem="0Z7-T0-ghm" secondAttribute="width" id="QqT-ty-QOH"/>
                             <constraint firstItem="yZ3-p2-olK" firstAttribute="centerX" secondItem="ahC-Sn-pJT" secondAttribute="centerX" id="Tye-Y7-TkW"/>
                             <constraint firstItem="Vaa-Bd-grB" firstAttribute="top" secondItem="ahC-Sn-pJT" secondAttribute="top" constant="8" id="WgQ-LE-sp0"/>
-                            <constraint firstItem="ahC-Sn-pJT" firstAttribute="trailing" secondItem="Vaa-Bd-grB" secondAttribute="trailing" constant="159" id="cok-Ux-ki4"/>
+                            <constraint firstItem="7QH-UZ-Gyz" firstAttribute="top" secondItem="ahC-Sn-pJT" secondAttribute="top" constant="8" id="af6-xf-l4j"/>
                             <constraint firstItem="yZ3-p2-olK" firstAttribute="height" secondItem="0Z7-T0-ghm" secondAttribute="height" id="gzc-z1-DMt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ahC-Sn-pJT"/>
@@ -202,6 +211,7 @@
                     <navigationItem key="navigationItem" title="Overzicht" id="cZd-uj-se8"/>
                     <connections>
                         <outlet property="settingsButton" destination="Vaa-Bd-grB" id="SMQ-xp-Q53"/>
+                        <outlet property="signOutButton" destination="7QH-UZ-Gyz" id="RiN-Uq-G2K"/>
                         <outlet property="tableView" destination="yZ3-p2-olK" id="Chg-Vo-tzM"/>
                     </connections>
                 </viewController>

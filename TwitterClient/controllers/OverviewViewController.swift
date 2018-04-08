@@ -5,6 +5,7 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var signOutButton: UIButton!
     
     var storageService = StorageService.shared
     
@@ -17,18 +18,14 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
         ApiService.shared.get(path: "1.1/statuses/home_timeline.json"){ status, jsonObject in
             if let tweetObjects = jsonObject as? [Any]{
                 for case let tweet as [String:Any] in tweetObjects {
-                    do{
-                        let id = try tweet["id"]
-                        let text = tweet["text"] as! String
-                        let createdAt = tweet["created_at"] as! String
-                        var username: String = ""
-                        if case let user as [String:Any] = tweet["user"]{
-                            username = user["name"] as! String
-                        }
-                        self.tweets += [Tweet(text: text, createdAt: createdAt)]
-                    }catch{
-                        print(error)
+                    let id = tweet["id"] as! Int
+                    let text = tweet["text"] as! String
+                    let createdAt = tweet["created_at"] as! String
+                    var username: String = ""
+                    if case let user as [String:Any] = tweet["user"]{
+                        username = user["name"] as! String
                     }
+                    self.tweets += [Tweet(id: id, username: username, text: text, createdAt: createdAt)]
                 }
                 
                 DispatchQueue.main.async{
@@ -64,9 +61,11 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
         if (language == "Nederlands") {
             self.title = "Overzicht"
             settingsButton.setTitle("Instellingen", for: .normal)
+            signOutButton.setTitle("Uitloggen", for: .normal)
         } else {
             self.title = "Overview"
             settingsButton.setTitle("Settings", for: .normal)
+            settingsButton.setTitle("Sign out", for: .normal)
         }
     }
     
@@ -86,5 +85,13 @@ class OverviewViewController: UIViewController, UITableViewDataSource, LanguageC
         cell.textLabel?.text = tweets[indexPath.row].tweetText
         
         return cell
+    }
+    
+    @IBAction func btnSignOutPressed(_ sender: Any) {
+        StorageService.shared.setAccessToken("")
+        StorageService.shared.setAccessTokenSecret("")
+        
+        self.dismiss(animated: true, completion: {});
+        self.navigationController?.popViewController(animated: true);
     }
 }

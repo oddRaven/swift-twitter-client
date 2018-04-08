@@ -20,7 +20,7 @@ class ApiService{
         initAccessTokens()
     }
     
-    private func initAccessTokens(){
+    public func initAccessTokens(){
         accessToken = StorageService.shared.getAccessToken()
         accessTokenSecret = StorageService.shared.getAccessTokenSecret()
     }
@@ -77,7 +77,7 @@ class ApiService{
         return authorizationHeader
     }
     
-    public func requestToken() -> Void {
+    public func requestToken(_ completion: @escaping (_ success: Bool) -> Void) -> Void {
         let path = "oauth/request_token"
         let url = URL(string: "https://\(host)/\(path)")!
         let method = "POST"
@@ -95,17 +95,19 @@ class ApiService{
             let matches = result.matches(regex: "(.*?)(?:=)(.*?)(?:[&|$])")
             guard matches.count >= 2 && matches[0].count == 3 && matches[1].count == 3 else {
                 print(response!)
+                completion(false)
                 return
             }
             self.oauthToken = matches[0][2]
             self.oauthTokenSecret = matches[1][2]
             
-            self.authorize()
+            self.authorize(completion)
+            completion(true)
         }
         task.resume()
     }
     
-    public func authorize() -> Void {
+    public func authorize(_ completion: @escaping (_ success: Bool) -> Void) -> Void {
         let path = "oauth/authorize?oauth_token=\(oauthToken)"
         let url: URL = URL(string: "https://\(host)/\(path)")!
         let method = "GET"
@@ -113,9 +115,7 @@ class ApiService{
         req.httpMethod = method
         
         DispatchQueue.main.async {
-            UIApplication.shared.open(url, completionHandler: { (success) -> Void in
-                print("authorization was successful: \(success)")
-            })
+            UIApplication.shared.open(url, completionHandler: completion)
         }
     }
     
